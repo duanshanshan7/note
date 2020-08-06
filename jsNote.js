@@ -352,3 +352,13 @@ typeof(new Date())    //object
 
 // Object.prototype.toString();
 Object.prototype.toString.call(new Date())   //object Date
+
+// instanceof：用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+([] instanceof Array)   // true
+
+
+// 数组排序
+// 1. 数组方法
+function arrSort(arr){
+  
+}
