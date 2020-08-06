@@ -282,6 +282,7 @@ child2.hobby;   // ['a', 'b', 'c']  都改变了
 
 // 2. 构造函数继承
 // 优点：改变实例的属性不影响父级属性，可以在 Child 中向 Parent 传参
+// 缺点：方法都在构造函数中定义，每次创建实例都会创建一遍方法。
 function Parse(name){
   this.name = name;
   this.hobby = [1,2,3];
@@ -297,3 +298,39 @@ function Child(name){
 let child1 = new Child('jack');
 let child2 = new Child('rose');
 
+
+// 3. 组合继承（原型链+构造函数）
+// 优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。
+function Parent(name, age){
+  this.name = name;
+  this.age = age;
+}
+Parent.prototype.getName = function(){
+  console.log(this.name);
+}
+
+function Child(name, age){
+  Parent.call(this, name, age);
+}
+Child.prototype = new Parent();
+Child.prototype.constructor = Child;
+
+let child1 = new Child('child1', 20);
+let child2 = new Child('child2', 22);
+
+// 寄生组合继承
+function createObj(o){
+  function F(){};
+  F.prototype = o;
+  return new F();
+}
+
+function prototype(Child, Parent){
+  const prototype = createObj(Parent);
+  prototype.constructor = Child;
+  Child.prototype = prototype;
+}
+
+
+// JS类型转换
+// 转Boolean
