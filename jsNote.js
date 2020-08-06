@@ -333,4 +333,22 @@ function prototype(Child, Parent){
 
 
 // JS类型转换
-// 转Boolean
+// https://github.com/mqyqingfeng/Blog/issues/159
+
+
+// 类型判断
+// typeof   不能判断数组、json等对象类型
+typeof('')   //string
+typeof(1)    //number
+typeof(true)   //boolean
+typeof(Symbol())   //symbol
+typeof(null)    //object
+typeof(undefined)   //undefined
+typeof([])   //object
+typeof({})   //object 
+typeof(function(){})   //function
+typeof(new Date())    //object
+
+
+// Object.prototype.toString();
+Object.prototype.toString.call(new Date())   //object Date
