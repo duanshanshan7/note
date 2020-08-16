@@ -109,17 +109,28 @@ class MyPromise {
     );
   }
 
-  all(promiseArr){
-    if(!Array.isArray(promiseArr)){
-      throw new Error('不是数组')
+  all(promiseArr) {
+    if (!Array.isArray(promiseArr)) {
+      throw new Error("不是数组");
     }
     let index = 0;
     let result = [];
     return new MyPromise((resolve, reject) => {
       promiseArr.forEach((p, i) => {
-        
-      })
-    })
+        MyPromise.resolve(p).then(
+          res => {
+            index++;
+            result[i] = res;
+            if (index === promiseArr.length) {
+              resolve(result);
+            }
+          },
+          err => {
+            reject(err);
+          }
+        );
+      });
+    });
   }
 }
 
