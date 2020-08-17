@@ -1,8 +1,8 @@
 // promise A+的三种状态: pending, fulfilled, rejected
 
-const PENDING = "pending";
-const FULFILLED = "fulfilled";
-const REJECTED = "rejected";
+const PENDING = 'pending';
+const FULFILLED = 'fulfilled';
+const REJECTED = 'rejected';
 
 class MyPromise {
   constructor(executer) {
@@ -12,7 +12,7 @@ class MyPromise {
     this.resolveQueue = [];
     this.rejectQueue = [];
 
-    const _resolve = val => {
+    const _resolve = (val) => {
       const run = () => {
         if (this._status !== PENDING) {
           return;
@@ -27,7 +27,7 @@ class MyPromise {
       setTimeout(run);
     };
 
-    const _reject = val => {
+    const _reject = (val) => {
       const run = () => {
         if (this._status !== PENDING) {
           return;
@@ -47,10 +47,10 @@ class MyPromise {
 
   then(resolveFn, rejectFn) {
     return new MyPromise((resolve, reject) => {
-      const fulfilledFn = val => {
-        typeof resolveFn !== "function" && (resolveFn = val => val);
-        typeof rejectFn !== "function" &&
-          (rejectFn = reason => {
+      const fulfilledFn = (val) => {
+        typeof resolveFn !== 'function' && (resolveFn = (val) => val);
+        typeof rejectFn !== 'function' &&
+          (rejectFn = (reason) => {
             throw new Error(reason instanceof Error ? reason.message : reason);
           });
         // 实现链式调用
@@ -62,7 +62,7 @@ class MyPromise {
         }
       };
 
-      const rejectedFn = val => {
+      const rejectedFn = (val) => {
         // 实现链式调用
         try {
           const x = rejectFn(val);
@@ -101,45 +101,60 @@ class MyPromise {
 
   finally(callback) {
     return this.then(
-      res => MyPromise.resolve(callback()).then(() => res),
-      err =>
+      (res) => MyPromise.resolve(callback()).then(() => res),
+      (err) =>
         MyPromise.resolve(callback()).then(() => {
           throw err;
         })
     );
   }
 
-  all(promiseArr) {
+  static all(promiseArr) {
     if (!Array.isArray(promiseArr)) {
-      throw new Error("不是数组");
+      throw new Error('不是数组');
     }
     let index = 0;
     let result = [];
     return new MyPromise((resolve, reject) => {
       promiseArr.forEach((p, i) => {
         MyPromise.resolve(p).then(
-          res => {
+          (res) => {
             index++;
             result[i] = res;
             if (index === promiseArr.length) {
               resolve(result);
             }
           },
-          err => {
+          (err) => {
             reject(err);
           }
         );
       });
     });
   }
+
+  static race(promiseArr) {
+    return new MyPromise((resolve, reject) => {
+      for (let p in promiseArr) {
+        MyPromise.resolve(p).then(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+      }
+    });
+  }
 }
 
 const p2 = new MyPromise((resolve, reject) => {
   setTimeout(() => {
-    resolve("result-p2");
+    resolve('result-p2');
   }, 2000);
   setTimeout(() => {
-    reject("erroe-p2");
+    reject('erroe-p2');
   }, 1000);
 });
 
@@ -150,12 +165,12 @@ const p3 = new MyPromise((resolve, reject) => {
   resolve(1); //同步executor测试
 });
 
-p3.then(res => {
+p3.then((res) => {
   console.log(res);
   return 2; //链式调用测试
 })
   .then() //值穿透测试
-  .then(res => {
+  .then((res) => {
     console.log(res);
     return new MyPromise((resolve, reject) => {
       setTimeout(() => {
@@ -163,13 +178,13 @@ p3.then(res => {
       }, 1000);
     });
   })
-  .then(res => {
+  .then((res) => {
     console.log(res);
-    throw new Error("reject测试"); //reject测试
+    throw new Error('reject测试'); //reject测试
   })
   .then(
     () => {},
-    err => {
+    (err) => {
       console.log(err);
     }
   );
