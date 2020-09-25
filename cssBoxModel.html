@@ -1,0 +1,36 @@
+<!-- css盒模型 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>css盒模型</title>
+    <link rel="stylesheet" href="./styles/cssBoxModel.css">
+  </head>
+  <body>
+    <div class="box">
+      css盒模型, 块级标签可以设置width和height
+    </div>
+    <span class="span">
+      行内标签不可以设置width和height（它的width由内容决定，height由font-size决定）
+    </span>
+    <p>
+      margin重叠(坍塌):兄弟元素之间的重叠：上面盒子的 margin-bottom 和下面盒子的
+      margin-top 重叠，中间的margin值大小是取大优先
+    </p>
+    <p>
+      解决方法：给 块级标签 变成 行内块标签 使用
+      浮动（浮动元素是不会坍塌的，具体内容请参考我别的文章）
+    </p>
+    <div class="top-box">
+      marginBottom
+    </div>
+    <div class="bottom-box">
+      <div class="bottom-box-children">
+        children
+      </div>
+      marginTop
+    </div>
+  </body>
+</html>

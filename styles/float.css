@@ -1,0 +1,27 @@
+html, body, *{
+  margin:0;
+  padding: 0;
+}
+.container{
+  width: 300px;
+  /* height: 100px; */
+  background-color: lightsteelblue;
+  /* overflow: hidden; */
+}
+.box{
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: bisque;
+  margin: 10px;
+}
+.container:after{
+  content:'';
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.clear{
+  /* clear: both; */
+}
