@@ -8,16 +8,21 @@
 # css系列
 1. flex布局？有哪些属性？
 2. 什么是BFC，如何触发BFC？
-3. css盒模型
-4. 元素水平垂直居中？
-5. 清除浮动的方法有哪些？
-6. CSS中 link 和@import 的区别是什么？
-7. css动画，transition和animation的区别？
-8. css优先级
-9. 使元素消失的方法：visibility:hidden、display:none、z-index=-1、opacity：0
-10. 网页的层叠等级(z-index)？
+3. 创建BFC：
+  float
+  position: absolute | fixed
+  display: inline-block | flex | table-cell
+  overflow: hidden | auto | scroll | !visible
+4. css盒模型
+5. 元素水平垂直居中？
+6. 清除浮动的方法有哪些？
+7. CSS中 link 和@import 的区别是什么？
+8. css动画，transition和animation的区别？
+9. css优先级
+10. 使元素消失的方法：visibility:hidden、display:none、z-index=-1、opacity：0
+11. 网页的层叠等级(z-index)？
     background/border -> z-index为负值 -> 块级元素 -> 浮动元素 -> 行内元素 -> z-index=0/auto/没有设置z-index -> z-index为正值
-11. 
+12. 
 
 # JavaScript系列
 1. 异步解决方案，promise原理，promise.all, promise.race
@@ -92,12 +97,37 @@
 
 
 # react系列
+1. 虚拟DOM，如何转化为真正的DOM
+2. react中key的作用
+3. 触发多次setstate，render会执行几次？
+4. react生命周期
+5. React 中 refs 的作用是什么？
+6. 状态提升
+7. 受控组件和非受控组件
+8. React 中有哪些构建组件的方式？
+9. 什么是上下文Context?
+10. hooks相关
+---------------补充面试题-----------
+
+# react-router
+
+
+
+# react-redux
+1. redux数据流
+2. action里面异步事件？
 
 
 # react-native系列
 
 
 # webpack系列
+1. webpack是什么
+2. webpack有哪些功能
+3. 打包原理，构建过程
+4. 什么是loader，plugins?
+5. 常见的loader
+6. loader与plugin的区别？
+7. plugin
+8. webpack优化
 
-
-# typescript系列
