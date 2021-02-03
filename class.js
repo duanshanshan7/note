@@ -51,7 +51,7 @@ console.log(Object.getOwnPropertyNames(point))
 
 
 // getter setter
-class MyClass {
+const MyClass = class Me {
   constructor(){
 
   }
@@ -63,6 +63,10 @@ class MyClass {
   set propp(val){
     console.log('set' + val)
   }
+
+  getName(){
+    return Me.name
+  }
 }
 
 const a = new MyClass();
@@ -70,4 +74,5 @@ console.log(a.prop)
 a.prop = 456;
 
 console.log(a.prop)
+
 
