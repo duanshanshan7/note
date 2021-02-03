@@ -188,3 +188,9 @@ p3.then((res) => {
       console.log(err);
     }
   );
+
+  Promise.all()   //所有为fulfilled状态变为fullfilled ， 有一个为rejected状态变为rejected
+  Promise.race()  //有一个率先改变状态就变为这个状态
+  Promise.allSettled() //所有都执行完毕才改变状态， 状态总是改变为fullfilled
+  Promise.any()  //有一个变为fullfilled则状态变为fullfilled，所有都变为rejected则状态变为rejected
+  Promise.try()  //
