@@ -158,6 +158,17 @@ function deepClone(obj) {
   return cloneObj;
 }
 
+// 数组扁平化
+function flatDeep(arr, d = 1) {
+  return d > 0 ?
+    arr.reduce(
+      (total, currentValue) =>
+      total.concat(Array.isArray(currentValue) ? flatDeep(currentValue, d - 1) : currentValue),
+      [] // 初始值(initialValue)是一个空数组
+    ) :
+    arr
+}
+
 // 原型和原型链
 function Person() {
   this.name = "jack";
