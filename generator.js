@@ -1,59 +1,53 @@
-// function * gen(){
-//   let a = 1;
-//   console.log('a:'+a)
-//   let b = yield a+1;
-//   console.log('b:'+b);
-//   yield b + 1
-//   return 123;
-// }
-
-// console.log(gen());
-// console.log(gen().toString());
-
-// let g = gen();
-// // console.log(g.next());
-// // console.log(g.next(2));
-// // console.log(g.next());
-
-// function run(){
-//   const {value,done} = g.next();
-//   console.log(value);
-//   if(!done){
-//     run();
-//   }
-// }
-// run();
-
-function* gen(num) {
-  let r1 = yield compute(num);
-  // console.log(r1, "kkk");
-  yield compute(r1);
+// generator函数
+function* gen() {
+  console.log('start');
+  const a = 1;
+  const b = 2;
+  yield a + b;
+  const c = yield b - a;
+  console.log(c);
 }
+let g = gen();
+console.log(g);
+console.log(g.next()); // start
+console.log(g.next());
+console.log(g.next(5));
 
-function compute(num) {
+function promise() {
   return new Promise((resolve, reject) => {
+    console.log('promise start');
     setTimeout(() => {
-      resolve(num * num);
+      resolve('success');
     }, 2000);
   });
 }
 
-// const g = gen(2);
-// console.log(g);
-// g.next().value.then(res => console.log(res));
-function run(gen, num) {
-  const g = gen(num);
-  function _next(val) {
-    const { value, done } = g.next(val);
-    console.log(123456, value, done);
-    !done
-      ? value.then(res => {
-          console.log(res);
-          _next(res);
-        })
-      : console.log(value);
-  }
-  _next();
+// 实现async
+
+function* genFunc() {
+  yield 1;
+  const res = yield promise();
+  console.log(res);
+  return res;
 }
 
-run(gen, 2);
+function run(gen) {
+  var g = gen(); //由于每次gen()获取到的都是最新的迭代器,因此获取迭代器操作要放在_next()之前,否则会进入死循环
+  function _next(val) {
+    return new Promise((resolve, reject) => {
+      try {
+        const res = g.next(val);
+        if (res.done) {
+          return resolve(res.value);
+        }
+        Promise.resolve(res.value).then((val) => _next(val));
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+  return _next();
+}
+
+const res = run(genFunc);
+console.log(res);
