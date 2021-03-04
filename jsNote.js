@@ -1,4 +1,216 @@
-//
+//js中的8大数据类型
+'string'
+'number',
+'boolean'
+null
+undefined
+'object'
+'symbol'
+'bigInt'
+
+// object 里面又包含
+'正则对象'
+'array'
+'function'
+'date'
+
+// 判断数据类型的四种方法
+//1. typeof
+typeof 1 //number
+typeof 'string' //string
+typeof true  //boolean
+typeof null //object
+typeof undefined //undefined
+typeof function(){} //function
+typeof Symbol() //symbol
+typeof [] /new Date() /new RegExp();  //object
+
+// 2. instanceof
+// instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。
+[] instanceof Array; // true
+Object() instanceof Object; //true
+newDate() instanceof Date; // true
+function Person(){};
+newPerson() instanceof Person;
+[] instanceof Object;// true
+newDate() instanceof Object;// true
+newPerson instanceof Object;// true
+
+
+// 3. Object.prototype.toString.call()
+Object.prototype.toString.call()
+
+// 4. constructor
+[].constructor === Array;  // true
+
+// =================================================================================================
+// js的堆栈内存的运行机制
+// js之所以能在浏览器中运行，是因为浏览器给js提供了执行环境运行的栈内存
+// 浏览器会在计算机内存中分配一块内存，专门用来供代码执行=》栈内存ECStack（Execution Context Stack）执行环境栈，
+// 每打开一个网页都会生成一个全新的ECS
+// ECS的作用
+  // 提供一个供JS代码自上而下执行的环境（代码都在栈中执行）
+  // 由于基本数据类型值比较简单，他们都是直接在栈内存中开辟一个位置，把值直接存储进去的，当栈内存被销毁，存储的那些基本值也都跟着销毁
+
+// 堆内存
+  // 堆内存：引用值对应的空间
+  // 存储引用类型值（对象：键值对， 函数：代码字符串），当内存释放销毁，那么这个引用值彻底没了
+  // 堆内存释放
+    // 当堆内存没有被任何得变量或者其他东西所占用，浏览器会在空闲的时候，自主进行内存回收，把所有不被占用得内存销毁掉
+    // 谷歌浏览器（webkit），每隔一定时间查找对象有没有被占用
+    // 引用计数器:当对象引用为0时释放它
+
+// GO VO EO AO
+  // GO：全局对象，浏览器会让window指向GO
+  // EO 执行上下文
+  // VO 变量对象
+  // AO 活动对象，函数私有执行上下文中的活动变量，属于VO
+
+// 变量提升机制
+
+// 作用域和作用域链
+
+// 原型和原型链
+
+// 闭包，闭包的两大作用：保存和保护
+
+// 类和实例
+
+// DOM0 DOM2 DOM3事件
+  // https://www.jianshu.com/p/3acdf5f71d5b/
+
+// js中this的五种情况
+  // 1.给元素的某个事件行为绑定方法，事件触发，方法执行，此时方法中的this一般都是当前元素本身：DOM2事件除外，指向window
+  // 2.普通函数执行，它里边的this是谁，取决于方法执行前面是否有“.”，有的话，“.”前面是谁this就是谁，没有的话并且是在非严格模式下this就是window，严格模式下是undefined：
+  // 3.构造函数执行(也即是new执行)，函数中的this是当前类的实例
+  // 4.箭头函数中没有this，所用到的this都是其上下文中的this(或者说是上级上下文)
+  // 5.基于call/apply/bind可以改变函数中this的指向：
+
+// js中的四大继承方案
+// 1. 原型继承：子类的原型指向父类的一个实例。
+// 2. 构造函数继承：call继承
+// 3. 寄生组合继承：call继承+变异版的原型继承共同完成的。
+// 4. 
+
+
+// 继承的多种方式及优缺点
+// 1. 原型链继承
+// 缺点：所有的属性和方法都共享，引用类型, 不能向父级传参
+function Parent() {
+  this.name = "jack";
+  this.hobby = ["a", "b"];
+  this.getName = function() {
+    console.log(this.name);
+  };
+}
+
+function Child() {
+  this.name = "rose";
+}
+Child.prototype = new Person();
+let child1 = new Child();
+child1.hobby.push("c");
+let child2 = new Child();
+child1.hobby; // ['a', 'b', 'c']
+child2.hobby; // ['a', 'b', 'c']  都改变了
+
+// 2. 构造函数继承
+// 优点：改变实例的属性不影响父级属性，可以在 Child 中向 Parent 传参
+// 缺点：方法都在构造函数中定义，每次创建实例都会创建一遍方法。
+function Parse(name) {
+  this.name = name;
+  this.hobby = [1, 2, 3];
+  this.getName = function() {
+    console.log(this.name);
+  };
+}
+
+function Child(name) {
+  Parse.call(this, name);
+}
+
+let child1 = new Child("jack");
+let child2 = new Child("rose");
+
+// 3. 寄生组合继承
+function A() {
+  this.x = 100;
+}
+A.prototype.getX = function getX() {
+  console.log(this.x);
+};
+
+function B() {
+  A.call(this);
+  this.y = 200;
+}
+//=>Object.create(OBJ) 创建一个空对象，让其__proto__指向OBJ（把OBJ作为空对象的原型）
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B; //把constructor补上
+B.prototype.getY = function getY() {
+  console.log(this.y);
+};
+let b = new B;
+console.log(b);
+
+// 4. ES6中class类
+class A {
+  constructor() {
+      this.x = 100;
+  }
+  getX() {
+      console.log(this.x);
+  }
+}
+//=>extends继承和寄生组合继承基本类似
+class B extends A {
+  constructor() {
+      super(); //=>一但使用extends实现继承，只要自己写了constructor，就必须写super
+      this.y = 200;
+  }
+  getY() {
+      console.log(this.y);
+  }
+}
+let b = new B;
+// 其实extends继承和寄生组合继承基本类似，而且必须加上super()函数，它相当于A.call(this)。
+
+// 项目中我们会用到继承地方比如自己写插件或者类库的时候，还有就是react中用class实现继承。
+
+
+// ===========================================================================================
+// let、const 和var的区别
+// 解构赋值和拓展运算符
+// set map weakSet weakMap
+// generator生成器函数
+// async await原理
+// eventLoop 事件循环机制 宏任务，微任务
+
+// ============================================================================================
+// ajax核心四部操作
+  // 1. 创建一个XMLHttpRequest实例对象。
+  let xhr = new XMLHttpRequest;
+  // 2. 打开请求连接，配置请求信息。
+  xhr.open(method,url,async);
+  // 3. 发送AJAX请求，AJAX任务开始，一直到响应主体信息返回代表任务结束
+  xhr.send(formData);
+  // 4. 监听请求状态——不同的状态做不同的事。
+  xhr.onreadystatechange = () => {}
+
+// get/post 的核心机制与区别
+
+// 前端跨域的解决方案
+// 1. jsonp 只适用于get
+// 2. cros 设置响应头
+// 3. proxy代理
+
+// 浏览器输入网址之后发生了什么
+
+// 浏览器渲染原理，回流和重绘，哪些操作会引起回流，如何避免？
+
+// cookie localStorage sessionStorage的区别
+
+
 a = "aaa";
 function foo() {
   console.log(this.a);
@@ -269,76 +481,6 @@ function Person(name, age) {
   }
 }
 
-// 继承的多种方式及优缺点
-// 1. 原型链继承
-// 缺点：所有的属性和方法都共享，引用类型, 不能向父级传参
-function Parent() {
-  this.name = "jack";
-  this.hobby = ["a", "b"];
-  this.getName = function() {
-    console.log(this.name);
-  };
-}
-
-function Child() {
-  this.name = "rose";
-}
-Child.prototype = new Person();
-let child1 = new Child();
-child1.hobby.push("c");
-let child2 = new Child();
-child1.hobby; // ['a', 'b', 'c']
-child2.hobby; // ['a', 'b', 'c']  都改变了
-
-// 2. 构造函数继承
-// 优点：改变实例的属性不影响父级属性，可以在 Child 中向 Parent 传参
-// 缺点：方法都在构造函数中定义，每次创建实例都会创建一遍方法。
-function Parse(name) {
-  this.name = name;
-  this.hobby = [1, 2, 3];
-  this.getName = function() {
-    console.log(this.name);
-  };
-}
-
-function Child(name) {
-  Parse.call(this, name);
-}
-
-let child1 = new Child("jack");
-let child2 = new Child("rose");
-
-// 3. 组合继承（原型链+构造函数）
-// 优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。
-function Parent(name, age) {
-  this.name = name;
-  this.age = age;
-}
-Parent.prototype.getName = function() {
-  console.log(this.name);
-};
-
-function Child(name, age) {
-  Parent.call(this, name, age);
-}
-Child.prototype = new Parent();
-Child.prototype.constructor = Child;
-
-let child1 = new Child("child1", 20);
-let child2 = new Child("child2", 22);
-
-// 寄生组合继承
-function createObj(o) {
-  function F() {}
-  F.prototype = o;
-  return new F();
-}
-
-function prototype(Child, Parent) {
-  const prototype = createObj(Parent);
-  prototype.constructor = Child;
-  Child.prototype = prototype;
-}
 
 // JS类型转换
 // https://github.com/mqyqingfeng/Blog/issues/159
