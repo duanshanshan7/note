@@ -90,7 +90,7 @@ Object.prototype.toString.call()
 // 1. 原型继承：子类的原型指向父类的一个实例。
 // 2. 构造函数继承：call继承
 // 3. 寄生组合继承：call继承+变异版的原型继承共同完成的。
-// 4. 
+// 4. class extends继承
 
 
 // 继承的多种方式及优缺点
@@ -210,6 +210,7 @@ let b = new B;
 
 // cookie localStorage sessionStorage的区别
 
+// 浏览器缓存 无缓存  强缓存  协商缓存
 
 a = "aaa";
 function foo() {

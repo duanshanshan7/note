@@ -4,6 +4,12 @@ const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
 
+new Promise((resolve,reject) => {
+  setTimeout(() => {
+    resolve(1)
+  }, 1000);
+}).then(res => {console.log(res)})
+
 class MyPromise {
   constructor(executer) {
     // console.log('执行了')
