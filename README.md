@@ -12,6 +12,14 @@ https://juejin.im/post/6844903971002253320#heading-1
 
 https://juejin.im/post/6844904199017218055
 
+# HTML
+
+1. **XML 和 HTML 的区别**
+   ![alt xml&html](./images/xml-html.png)
+
+2. **canvas 和 svg 的区别**
+   [canvas vs svg](https://www.w3school.com.cn/html5/html_5_canvas_vs_svg.asp)
+
 # css 系列
 
 1. **flex 布局？有哪些属性？**
@@ -36,7 +44,7 @@ BFC：块格式化上下文;
    ![alt 标准盒模型](./images/boxModel.png)
    怪异（IE）盒模型：
    ![alt 标准盒模型](./images/IEBoxModel.png)
-4. __元素水平垂直居中的方法？__
+4. **元素水平垂直居中的方法？**
 
 ```css
 //方案一：flex布局
@@ -76,13 +84,13 @@ box: justifyContent:center
 //方案四：js计算
 ```
 
-5. __清除浮动的方法有哪些？__
+5. **清除浮动的方法有哪些？**
 
 ```css
 // 浮动的元素后面加div 设置css clear：both
 ```
 
-6. __CSS 中 link 和@import 的区别是什么？__
+6. **CSS 中 link 和@import 的区别是什么？**
 
 ```
   a. link属于HTML标签，而@import是CSS提供的，且只能加载 CSS
@@ -92,7 +100,7 @@ box: justifyContent:center
   e. 当使用 Javascript 控制 DOM 去改变样式的时候，只能使用 link 方式，因为 @import 眼里只有 CSS ，不是 DOM 可以控制的。
 ```
 
-7. __css 动画，transform,transition 和 animation 的区别？分别有哪些属性？__
+7. **css 动画，transform,transition 和 animation 的区别？分别有哪些属性？**
 
 ```css
   transition（过渡）、transform（变换）、animation（动画）
@@ -148,16 +156,16 @@ box: justifyContent:center
 
 ```
 
-8. __css 优先级__
+8. **css 优先级**
 
 ```
   !import > 内联样式 > id > class = 伪类选择器(:hover等) = 属性选择器[type等] > 标签 = 伪元素选择器(:after/:before/::selection等) > * 通配符 > 继承的样式
 ```
 
-9. __css 权重值__
-    [权重值比较](https://www.cnblogs.com/cnblogs-jcy/p/8574177.html)：不在赘述
+9. **css 权重值**
+   [权重值比较](https://www.cnblogs.com/cnblogs-jcy/p/8574177.html)：不在赘述
 
-10. __使元素消失的方法有哪些？有什么区别？__
+10. **使元素消失的方法有哪些？有什么区别？**
 
 ```css
   visibility:hidden;display:none;z-index:-1;opacity:0;
@@ -169,17 +177,22 @@ box: justifyContent:center
 
 ```
 
-11. __网页的层叠等级(z-index)__
+11. **网页的层叠等级(z-index)**
+
 ```
     background/border -> z-index 为负值 -> 块级元素 -> 浮动元素 -> 行内元素 -> z-index=0/auto/没有设置 z-index -> z-index 为正值
 ```
-  ![alt zIndex](./images/zIndex.png)
 
+![alt zIndex](./images/zIndex.png)
 
+12. **css3 新特性**
+    [css3 新特性](https://www.html.cn/qa/css3/13608.html)
+    [css3 教程](https://www.w3school.com.cn/css/css3_3dtransforms.asp)
 
 # JavaScript 系列
 
-1. __异步解决方案? promise有哪些方法__
+1. **异步解决方案? promise 有哪些方法**
+
 ```javascript
   回调函数 Promise
   Promise.resolve();
@@ -211,90 +224,103 @@ box: justifyContent:center
     Promise.try就是模拟try代码块，就像promise.catch模拟的是catch代码块。
 
 ```
-2. __async await? 实现generator自动执行__
-  ```javascript
-    generator函数的语法糖
-    async函数返回一个 Promise 对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
 
-    //generator自动执行
-    function *gen(){
-      yield new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(123);
-        }, 2000)
-      });
-      yield new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(456);
-        }, 2000)
-      });
-    }
+2. **async await? 实现 generator 自动执行**
 
-    function run(genFunc){
-      const gen = genFunc();
-      function next(data){
-        const res = gen.next(data);
-        const {value, done} = res;
-        if(done){
-          return value;
-        }
-        value.then(res => {
-          console.log(res)
-          next(res)
-        }).catch(err => {
-          throw new Error('err');
-        })
-      }
-      next();
-    }
-    
-  ```
-3. 把一个伪数组变成真实的数组
 ```javascript
-   [...obj]
-   Array.from(obj)
-   ```
-4. __this 的理解__
+  generator函数的语法糖
+  async函数返回一个 Promise 对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+
+  //generator自动执行
+  function *gen(){
+    yield new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(123);
+      }, 2000)
+    });
+    yield new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(456);
+      }, 2000)
+    });
+  }
+
+  function run(genFunc){
+    const gen = genFunc();
+    function next(data){
+      const res = gen.next(data);
+      const {value, done} = res;
+      if(done){
+        return value;
+      }
+      value.then(res => {
+        console.log(res)
+        next(res)
+      }).catch(err => {
+        throw new Error('err');
+      })
+    }
+    next();
+  }
+
+```
+
+3. 把一个伪数组变成真实的数组
+
+```javascript
+[...obj];
+Array.from(obj);
+```
+
+4. **this 的理解**
+
 ```javascript
   1. dom 0事件调用的函数，this指向当前dom；
   2. dom 2事件调用的函数，this指向window，严格模式下指向undefined
   3. 函数被谁调用，this指向调用此函数的对象
   4. 构造函数里面的this，指向构造函数创建出来的实例
-  ```
-5. __prototype和__proto__的概念__
-  ```javascript
-    prototype是函数的一个属性（每个函数都有一个prototype属性），这个属性是一个指针，指向一个对象。它是显示修改对象的原型的属性。
+```
 
-    __proto__是一个对象拥有的内置属性（请注意：prototype是函数的内置属性，__proto__是对象的内置属性），是JS内部使用寻找原型链的属性。
+5. **prototype 和**proto**的概念**
 
-    用chrome和FF都可以访问到对象的__proto__属性，IE不可以。
-  ```
+```javascript
+  prototype是函数的一个属性（每个函数都有一个prototype属性），这个属性是一个指针，指向一个对象。它是显示修改对象的原型的属性。
 
-5. __原型&原型链的理解__
-  ![alt 原型链图](./images/prototype.png)
+  __proto__是一个对象拥有的内置属性（请注意：prototype是函数的内置属性，__proto__是对象的内置属性），是JS内部使用寻找原型链的属性。
+
+  用chrome和FF都可以访问到对象的__proto__属性，IE不可以。
+```
+
+5. **原型&原型链的理解**
+   ![alt 原型链图](./images/prototype.png)
 
 6. 什么是闭包？有什么作用？
-  ```
-    闭包：内部函数总是可以访问其所在的外部函数中声明的参数和变量，即使在其外部函数被返回（寿命终结）了之后。
 
-    特点：让外部访问函数内部变量成为可能；
+```
+  闭包：内部函数总是可以访问其所在的外部函数中声明的参数和变量，即使在其外部函数被返回（寿命终结）了之后。
 
-      局部变量会常驻在内存中；
+  特点：让外部访问函数内部变量成为可能；
 
-      可以避免使用全局变量，防止全局变量污染；
+    局部变量会常驻在内存中；
 
-      会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
-  ```
-7. __js eventLoop，宏任务，微任务？__
-8. __作用域&作用域链的理解__
-9. __call apply bind 的作用和区别__
+    可以避免使用全局变量，防止全局变量污染；
+
+    会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
+```
+
+7. **js eventLoop，宏任务，微任务？**
+8. **作用域&作用域链的理解**
+9. **call apply bind 的作用和区别**
+
 ```javascript
   call,apply,bind都是用来改变this的指向的；
   call(obj, param1, params,...)
   apply(obj, [param1, param2,...])
   bind(obj, param1, param2, ...)返回一个函数，函数的this指向第一个参数
 ```
+
 10. 常用的数组方法
+
 ```javascript
   const arr = [1,2,3,4,5];
   arr.some(fn);
@@ -308,10 +334,12 @@ box: justifyContent:center
   Array.from方法用于将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）。
 
 ```
-11. __js 中的数据类型__
-12. __判断数据类型的方法，typeof，instanceof 的区别__
-13. __ES6 中的模块化和 commonjs 模块化的区别 import 和 require 相比有什么优点？__
-14. __继承的概念，实现继承的几种方式__
+
+11. **js 中的数据类型**
+12. **判断数据类型的方法，typeof，instanceof 的区别**
+13. **ES6 中的模块化和 commonjs 模块化的区别 import 和 require 相比有什么优点？**
+14. **继承的概念，实现继承的几种方式**
+
 ```javascript
   继承是子类通过某种方式去得到父类的方法和属性；
   继承的5种方式
@@ -376,6 +404,70 @@ box: justifyContent:center
 19. new 操作符都做了些什么
 20. 跨域的解决方案
 21. 数组去重的方法
+22. 遍历对象的 5 种方法
+
+  ```javascript
+  ES6 一共有 5 种方法可以遍历对象的属性。
+
+  （1）for...in
+
+  for...in循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+
+  （2）Object.keys(obj)
+
+  Object.keys返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。
+
+  （3）Object.getOwnPropertyNames(obj)
+
+  Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
+
+  （4）Object.getOwnPropertySymbols(obj)
+
+  Object.getOwnPropertySymbols返回一个数组，包含对象自身的所有 Symbol 属性的键名。
+
+  （5）Reflect.ownKeys(obj)
+
+  Reflect.ownKeys返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。
+  ```
+
+23. __let、const、var的区别，如何实现一个const__
+  ```javascript
+    1. var声明的变量会挂载在window上，而let和const声明的变量不会
+    2. var声明变量存在变量提升，let和const不存在变量提升
+    3. let和const声明形成块作用域，而var不存在此作用域
+    4. 同一作用域下let和const不能声明同名变量，而var可以
+    5. let、const存在暂存死区
+    6. const 一旦声明则不可修改，声明时必须赋值，不可为null
+    实现一个const  主要利用数据劫持 defineProperty
+    //Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+      var __const = function __const(data, value) {
+        window.data = value // 把要定义的data挂载到window下，并赋值value
+        Object.defineProperty(window, data, { // 利用Object.defineProperty的能力劫持当前对象，并修改其属性描述符
+          enumerable: false,
+          configurable: false,
+          get: function () {
+            return value
+          },
+          set: function (data) {
+            if (data !== value) { // 当要对当前属性进行赋值时，则抛出错误！
+              throw new TypeError('Assignment to constant variable.')
+            } else {
+              return value
+            }
+          }
+        })
+      }
+      __const('a', 10)
+      console.log(a)
+      delete a
+      console.log(a)
+      for (let item in window) { // 因为const定义的属性在global下也是不存在的，所以用到了enumerable: false来模拟这一功能
+        if (item === 'a') { // 因为不可枚举，所以不执行
+          console.log(window[item])
+        }
+      }
+      a = 20 // 报错
+  ```
 
 # js 手写系列
 
@@ -390,7 +482,8 @@ box: justifyContent:center
 9. 数组扁平化 flat
 10. promise，promise.all
 11. 组合继承，寄生继承
-12. 数组冒泡排序、快速排序
+12. 数组冒泡排序、快速排序、插入排序
+
 13. 创建对象的方法
 
 # http 系列
@@ -435,7 +528,6 @@ box: justifyContent:center
 9. 什么是上下文 Context?
 10. hooks 相关
     ---------------补充面试题-----------
-
 
 # react-redux
 
