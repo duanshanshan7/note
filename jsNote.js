@@ -557,5 +557,10 @@ function quickSort(arr) {
 // Promise
 // 见promise.js文件
 
+// async 实现
+function * gen(){
+  
+}
+
 
 
